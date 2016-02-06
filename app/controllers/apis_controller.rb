@@ -14,24 +14,31 @@ class ApisController < ApplicationController
 
   # GET /apis/new
   def new
-    @api = Api.new
+    @project = current_user.projects.find(params[:project_id])
+    @service = @project.services.find(params[:service_id])
+    @api = @service.apis.new
   end
 
   # GET /apis/1/edit
   def edit
+    @project = current_user.projects.find(params[:project_id])
+    @service = @project.services.find(params[:service_id])
   end
 
   # POST /apis
   # POST /apis.json
   def create
-    @api = Api.new(api_params)
+    @project = current_user.projects.find(params[:project_id])
+    @service = @project.services.find(params[:service_id])
+    @api = @service.apis.new(api_params)
 
     respond_to do |format|
       if @api.save
-        format.html { redirect_to @api, notice: 'Api was successfully created.' }
-        format.json { render :show, status: :created, location: @api }
+        format.html { redirect_to [@project, @service, @api], notice: 'Api was successfully created.' }
+        format.json { render :show, status: :created }
       else
         format.html { render :new }
+        format.js
         format.json { render json: @api.errors, status: :unprocessable_entity }
       end
     end
@@ -42,8 +49,9 @@ class ApisController < ApplicationController
   def update
     respond_to do |format|
       if @api.update(api_params)
-        format.html { redirect_to @api, notice: 'Api was successfully updated.' }
-        format.json { render :show, status: :ok, location: @api }
+        format.html { redirect_to [@api.project, @api.service, @api], notice: 'Api was successfully updated.' }
+        format.js
+        format.json { render :show, status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @api.errors, status: :unprocessable_entity }
