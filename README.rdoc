@@ -3,6 +3,6 @@
 Project based APIs management system.
 
 == Contributers 
-Waqar baig
-Mahendra gawas
+Waqar baig.
+Mahendra gawas.
 
