@@ -3,7 +3,7 @@
 Project based APIs management system.
 
 == Contributers ==
-Waqar baig.
+1 Waqar baig.
 Mahendra gawas.
 Ravindra Ghare.
 Anant Kolvankar.
